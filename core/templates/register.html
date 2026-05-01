@@ -47,12 +47,14 @@
             {{ form.role }}
         </div>
 
-        <div class="mb-3">
+        <div class="input-group mb-3">
             {{ form.password1 }}
+            <button type="button" class="btn btn-light" onclick="togglePassword('id_password1', this)">👁️</button>
         </div>
 
-        <div class="mb-3">
+        <div class="input-group mb-3">
             {{ form.password2 }}
+            <button type="button" class="btn btn-light" onclick="togglePassword('id_password2', this)">👁️</button>
         </div>
 
         <button class="btn w-100 fw-semibold" style="
@@ -72,6 +74,19 @@
     </p>
 
 </div>
+
+<script>
+function togglePassword(fieldId, btn) {
+    const input = document.getElementById(fieldId);
+    if (input.type === "password") {
+        input.type = "text";
+        btn.innerText = "🙈";
+    } else {
+        input.type = "password";
+        btn.innerText = "👁️";
+    }
+}
+</script>
 
 </body>
 </html>

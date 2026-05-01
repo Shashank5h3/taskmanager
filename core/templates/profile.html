@@ -26,7 +26,7 @@
 
             <div class="mb-3 text-center">
                 {% if user.profile_pic %}
-                    <img src="{{ user.profile_pic.url }}" width="100" class="rounded-circle">
+                    <img src="{{ user.profile_pic.url }}" width="100" class="rounded-circle mb-2">
                 {% endif %}
             </div>
 
@@ -50,7 +50,14 @@
                 <input type="file" name="profile_pic" class="form-control">
             </div>
 
-            <button class="btn btn-primary w-100">Update Profile</button>
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary">Update Profile</button>
+
+                <a href="{% if user.role == 'admin' %}/admin-dashboard/{% else %}/member-dashboard/{% endif %}" 
+                   class="btn btn-outline-secondary">
+                    ⬅ Back
+                </a>
+            </div>
 
         </form>
 
