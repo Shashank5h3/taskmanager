@@ -11,4 +11,10 @@ urlpatterns = [
     path('update-task/<int:task_id>/', views.update_task, name='update_task'),
     path('create-project/', views.create_project, name='create_project'),
     path('projects/', views.project_list, name='project_list'),
+    path('profile/', views.profile_view, name='profile'),
 ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

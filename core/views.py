@@ -8,6 +8,7 @@ from django.utils.timezone import now
 from .models import User
 from .forms import ProjectForm
 from .models import Project
+from django.contrib.auth.decorators import login_required
 
 def register_view(request):
     form = RegisterForm()
@@ -146,3 +147,18 @@ def project_list(request):
     return render(request, 'project_list.html', {
         'projects': projects
     })
+
+@login_required
+def profile_view(request):
+    user = request.user
+
+    if request.method == 'POST':
+        user.email = request.POST.get('email')
+        user.bio = request.POST.get('bio')
+
+        if request.FILES.get('profile_pic'):
+            user.profile_pic = request.FILES.get('profile_pic')
+
+        user.save()
+
+    return render(request, 'profile.html', {'user': user})

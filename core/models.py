@@ -7,6 +7,8 @@ class User(AbstractUser):
         ('member', 'Member'),
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='member')
+    bio = models.TextField(blank=True, null=True)
+    profile_pic = models.ImageField(upload_to='profiles/', blank=True, null=True)
 
 
 class Project(models.Model):
