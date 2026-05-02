@@ -63,3 +63,19 @@ form {
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+.action-btn {
+    height: 40px;
+    min-width: 80px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}

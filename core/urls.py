@@ -12,6 +12,7 @@ urlpatterns = [
     path('create-project/', views.create_project, name='create_project'),
     path('projects/', views.project_list, name='project_list'),
     path('profile/', views.profile_view, name='profile'),
+    path('delete-task/<int:task_id>/', views.delete_task, name='delete_task'),
 ]
 
 from django.conf import settings

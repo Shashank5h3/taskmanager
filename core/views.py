@@ -56,26 +56,30 @@ def logout_view(request):
 
 @login_required
 def admin_dashboard(request):
-    if request.user.role != 'admin':
-        return redirect('member_dashboard')
-
     tasks = Task.objects.all()
+
+    query = request.GET.get('q')
+    status = request.GET.get('status')
+
+    if query:
+        tasks = tasks.filter(title__icontains=query)
+
+    if status:
+        tasks = tasks.filter(status=status)
 
     total = tasks.count()
     completed = tasks.filter(status='completed').count()
     pending = tasks.filter(status='pending').count()
-    overdue = tasks.filter(deadline__lt=now(), status__in=['pending','in_progress']).count()
+    overdue = tasks.filter(deadline__lt=now()).count()
 
-    context = {
+    return render(request, 'admin_dashboard.html', {
+        'tasks': tasks,
         'total': total,
         'completed': completed,
         'pending': pending,
         'overdue': overdue,
-        'tasks': tasks
-    }
-    context['now'] = now()
-
-    return render(request, 'admin_dashboard.html', context)
+        'now': now()
+    })
 
 
 @login_required
@@ -162,3 +166,14 @@ def profile_view(request):
         user.save()
 
     return render(request, 'profile.html', {'user': user})
+
+def delete_task(request, task_id):
+    if request.user.role != 'admin':
+        return redirect('member_dashboard')
+
+    task = Task.objects.get(id=task_id)
+
+    if request.method == 'POST':
+        task.delete()
+
+    return redirect('admin_dashboard')
